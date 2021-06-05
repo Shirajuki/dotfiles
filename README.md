@@ -1,6 +1,8 @@
-# dotfiles
+# dotfiles (& other stuff)
 
-Heavy modification of [zodd18's PinkNord rice/colorscheme](https://github.com/zodd18/dotfiles)
+Welcome to my bspwm configuration c:
+
+Modification of [zodd18's PinkNord rice/colorscheme](https://github.com/zodd18/dotfiles)
 
 |||
 -|-
