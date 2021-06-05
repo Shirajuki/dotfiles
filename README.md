@@ -1,38 +1,39 @@
 # dotfiles
 
-OS: Void Linux
-WM: Openbox
-shell: kitty
-fonts: termsyn, tewi
-powerline: powerlevel10k
-Terminal: kitty (sakura as fallback)
-Text editor: nvim (vi as fallback)
-Bar: polybar
-notifications (not shown): Mako
-file manager: lf (ranger as fallback) - ueberzug
-music player: mpd + ncmpcpp + mpdas + mpc
-image viewer: sxiv
-menus (not shown): dmenu-wl, wofi
-browser: Firefox & qutebrowser
-pdf viewer: Zathura
+|||
+-|-
+**OS**| LMDE 4 (Linux Mint)
+**WM**| bspwn
+**Shell**| bash
+**Compositor**| compton
+**Fonts**| [xiaolai](https://github.com/lxgw/kose-font), monofur, setofont
+**Terminal**| sakura
+**Text editor**| nvim
+**Bar**| polybar
+**Notification daemon**| dunst
+**File manager**| ranger - ueberzug
+**Application launcher**| rofi, dmenu
+**Browsers**| Firefox, Chromium, Palemoon
+**Image viewer**| sxiv
+**Pdf viewer**| Zathura
+**Theme & Icons**| [PinkNord](https://github.com/zodd18/PinkNord)
 
+### Others
 extra:
-- vlc
 - dropbox
-- find
-- locate
 - tmux
 
-CTF:
-- wordlists
+CTF related tools to install:
+- kali wordlists
+- gdb-peda
 - exiftool
 - pngcheck
-- gbd-peda
 - hashcat
 - john-the-ripper
 - audacity
 - ghidra
 - wireshark
 - gobuster
-- stegsolve.jar
 - nmap
+
+### Images
