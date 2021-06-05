@@ -1,5 +1,7 @@
 # dotfiles
 
+Heavy modification of [zodd18's PinkNord rice/colorscheme](https://github.com/zodd18/dotfiles)
+
 |||
 -|-
 **OS**| LMDE 4 (Linux Mint)
@@ -13,7 +15,7 @@
 **Notification daemon**| dunst
 **File manager**| ranger - ueberzug
 **Application launcher**| rofi, dmenu
-**Browsers**| Firefox, Chromium, Palemoon
+**Browsers**| Firefox, Chromium
 **Image viewer**| sxiv
 **Pdf viewer**| Zathura
 **Theme & Icons**| [PinkNord](https://github.com/zodd18/PinkNord)
@@ -37,3 +39,4 @@ CTF related tools to install:
 - nmap
 
 ### Images
+![Image1](/screenshots/image_1.png)

@@ -1,0 +1,164 @@
+# Shirajuki
+#
+# wm independent hotkeys
+#
+
+# Show help
+super + plus
+	~/.config/sxhkd/sxhkdrc_help.sh
+
+# Open terminal emulator
+super + Return
+	sakura
+
+# Program launchers
+super + d
+	dmenu_run
+super + r
+	rofi -show drun -show-icons -lines 11 -line-margin 5 -padding 300 -bw 0 -config ~/.config/rofi/config.rasi
+#	rofi -show drun -show-icons -config /home/juki/.config/rofi/config.rasi 
+
+# Emoji - rofi
+super + e
+	~/.local/bin/rofimoji
+
+# Powermenu
+super + shift + q
+	/home/juki/.config/rofi/scripts/powermenu.sh
+
+# Reload sxhkd configuration files:
+super + Escape
+	pkill -USR1 -x sxhkd; notify-send 'sxhkd' 'Reloaded config' -t 800
+
+# Print screen
+Print
+	gnome-screenshot --interactive
+
+
+# bspwm hotkeys
+#
+
+# Quit / restart bspwm
+super + alt + {q,r}
+	bspc {quit,wm -r}; notify-send 'bspwm' 'Reloaded config' -t 800
+
+# Close node
+super + q
+	bspc node -c
+
+# Kill node
+super + q
+	bspc node -k
+
+# Alternate between the tiled and monocle layout
+super + m
+	bspc desktop -l next
+
+# send the newest marked node to the newest preselected node
+super + y
+	bspc node newest.marked.local -n newest.!automatic.local
+
+# swap the current node and the biggest window
+super + g
+	bspc node -s biggest.window
+
+#
+# state/flags
+#
+
+# Set window state
+super + {t,shift + t,s}
+	bspc node -t {tiled,pseudo_tiled,floating}
+
+# Toggle fullscreen
+super + f
+	bspc node -t {fullscreen,tiled}
+
+# Move node
+super + ctrl + {h,j,k,l}
+	~/.config/bspwm/bspwm_smart_move.sh {west,south,north,east}
+super + ctrl + {Left,Down,Up,Right}
+	~/.config/bspwm/bspwm_smart_move.sh {west,south,north,east}
+
+# Focus the node in the given direction
+super + {h,j,k,l}
+	SELECTION={1,2,3,4}; \
+	bspc node -f $(echo "west, south, north, east" | cut -d',' -f$SELECTION) || \
+	 bspc node -s $(echo "west, south, north, east" | cut -d',' -f$SELECTION)
+super + {Left,Down,Up,Right}
+	SELECTION={1,2,3,4}; \
+	bspc node -f $(echo "west, south, north, east" | cut -d',' -f$SELECTION) || \
+	bspc node -s $(echo "west, south, north, east" | cut -d',' -f$SELECTION)
+
+# Tab focus/select node on all windows
+super + {_,shift + }Tab
+	bspc node -f {next,prev}
+
+# Focus the next/previous window in the current desktop
+super + {_,shift + }c
+	bspc node -f {next,prev}.local.!hidden.window
+
+# focus the last node/desktop
+#super + {grave,Tab}
+#	bspc {node,desktop} -f last
+
+# Focus or send to the given desktop
+super + {_,shift + }{1-9,0}
+	bspc {desktop -f,node -d} '^{1-9,10}'; ~/.config/bspwm/wallpaper_change.sh
+
+# Expand a window by moving one of its side outward/inward
+super + shift + {Left,Down,Up,Right}
+    STEP=20; SELECTION={1,2,3,4}; \
+    bspc node -z $(echo "left -$STEP 0,bottom 0 $STEP,top 0 -$STEP,right $STEP 0" | cut -d',' -f$SELECTION) || \
+    bspc node -z $(echo "right -$STEP 0,top 0 $STEP,bottom 0 -$STEP,left $STEP 0" | cut -d',' -f$SELECTION)
+super + shift + {h,j,k,l}
+    STEP=20; SELECTION={1,2,3,4}; \
+    bspc node -z $(echo "left -$STEP 0,bottom 0 $STEP,top 0 -$STEP,right $STEP 0" | cut -d',' -f$SELECTION) || \
+    bspc node -z $(echo "right -$STEP 0,top 0 $STEP,bottom 0 -$STEP,left $STEP 0" | cut -d',' -f$SELECTION)
+
+# Contract / resize a window by moving one of its side inward
+super + alt + shift + {Left,Down,Up,Right}
+	bspc node -z {left 20 0,top 0 20,bottom 0 -20,right -20 0}
+super + alt + shift + {h,j,k,l}
+	bspc node -z {left 20 0,top 0 20,bottom 0 -20,right -20 0}
+
+# Move a floating window
+super + alt + {Left,Down,Up,Right}
+	bspc node -v {-20 0,0 20,0 -20,20 0}
+super + alt + {h,j,k,l}
+	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+# Move current window to largest space
+super + shift + Return
+	bspc node -s biggest
+
+# Mirror and flip leaves of tree
+super + {comma,period}
+	bspc node @parent -F {horizontal, vertical}
+
+# Rotate leaves of tree
+super + shift + {comma,period}
+	bspc node @/ -C {forward,backward}
+
+# Change desktop gap
+alt + {minus,plus}
+	bspc config window_gap $((`bspc config -d focused window_gap` {+,-} 2 ))
+
+#
+# Media keys
+#
+
+# Brightness
+XF86MonBrightnessDown
+	brightnessctl s 100- ; notify-send "Brightness- ($(/home/juki/.config/polybar/scripts/brightness.sh))" -t 400
+XF86MonBrightnessUp
+	brightnessctl s +100 ; notify-send "Brightness+ ($(/home/juki/.config/polybar/scripts/brightness.sh))" -t 400
+	
+# Volume
+XF86AudioRaiseVolume
+	amixer -q -D pulse sset Master 5%+ ; notify-send "Volume+ ($(/home/juki/.config/polybar/scripts/volume.sh))" -t 400
+XF86AudioLowerVolume
+	amixer -q -D pulse sset Master 5%- ; notify-send "Volume+ ($(/home/juki/.config/polybar/scripts/volume.sh))" -t 400
+XF86AudioMute
+	pactl set-sink-mute @DEFAULT_SINK@ toggle ; notify-send "Volume+ ($(/home/juki/.config/polybar/scripts/mute.sh))" -t 400
+
