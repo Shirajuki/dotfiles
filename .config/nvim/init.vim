@@ -26,13 +26,13 @@ set mouse=a " enable scroll with mouse
 
 """ NERDTree config
 Plug 'scrooloose/nerdtree'
-Plug 'ryanoasis/vim-devicons'
+" Plug 'ryanoasis/vim-devicons'
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeStatusline = ''
 let g:NERDTreeWinSize=25
 let g:NERDTreeChDirMode=2
 let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
-let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
+let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$', '\.bkp$', '\.bkup$']
 let g:NERDTreeShowBookmarks=1
 let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
@@ -131,7 +131,22 @@ set showbreak=\\ "
 set listchars=tab:\·\ ,eol:↵,trail:\ ,nbsp:_,precedes:←,extends:→
 
 " Clipboard for paste and copy globally
-set clipboard=unnamedplus
+" set clipboard=unnamedplus
+set clipboard+=unnamedplus
+" let g:loaded_clipboard_provider = 0 "fix
+
+" Copy to clipboard
+vnoremap  <leader>y  "+y
+nnoremap  <leader>Y  "+yg_
+nnoremap  <leader>y  "+y
+nnoremap  <leader>yy  "+yy
+
+" Paste from clipboard
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
+
 vmap <A-c> "+y
 highlight LineNr term=bold cterm=NONE ctermfg=DarkRed ctermbg=NONE gui=NONE guifg=Red guibg=NONE
 call plug#end()
